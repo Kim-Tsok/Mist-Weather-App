@@ -1,0 +1,46 @@
+<div class="flex p-2 justify-between items-center border-b-[1px] border-[#555] w-full shadow-md">
+    <div class="nav-left flex">
+        <div class="w-10 mr-3"><img src="./svg/facebook.svg" alt="logo"></div>
+        <div class="flex rounded-3xl pl-2">
+          <img src="./svg/search.svg" class="w-4 cursor-pointer"> <input type="search" placeholder="Search Facebook" class="p-2  outline-none bg-transparent text-black">
+        </div>
+    </div>
+
+    <div class="nav-mid">
+          <ul class="flex items-center">
+            <li><a href=""><img src="./svg/home.svg" alt="home" class="w-7 mr-6"></a></li>
+            <li><a href=""><img src="./svg/user (1).svg" alt="friends" class="w-7 mr-6 ml-6"></a></li>
+            <li><a href=""><img src="./svg/globe.svg" alt="videos" class="w-7 mr-6 ml-6"></a></li>
+            <li><a href=""><img src="./svg/shopping-cart.svg" alt="marketplace" class="w-7 mr-6 ml-6"></a></li>
+            <li><a href=""><img src="./svg/users-alt.svg" alt="groups" class="w-7 ml-6"></a></li>
+          </ul>
+    </div>
+
+    <div class="nav-right">
+        <ul class="flex items-center">
+          <li><a href=""><img src="./svg/settings.svg" alt="More" class="w-8 mr-3 p-2 bg-ash bg-opacity-70 hover:bg-opacity-50 rounded-[12px]"></a></li>
+          <li><a href=""><img src="./svg/envelope.svg" alt="Messenger" class="w-8 mr-3 p-2 bg-ash  bg-opacity-70 hover:bg-opacity-50 rounded-[12px]"></a></li>
+          <li><a href=""><img src="./svg/heart.svg" alt="Notifications" class="w-8 mr-3 p-2 bg-ash  bg-opacity-70 hover:bg-opacity-50 transition duration-150 rounded-[12px]"></a></li>
+          <li><a href=""><img src="./images/pexels-jean-van-der-meulen-1457842.jpg" alt="Profile" class="w-8 h-8 rounded-full"></a></li>
+        </ul>
+    </div>
+  </div>
+
+  <div class="flex justify-between">
+    <div class="left">
+      <div class="ul list-none">
+        <li><a href="" class="flex items-center"><img src="./images/pexels-jean-van-der-meulen-1457842.jpg" class="w-4 h-4 rounded-full" alt="">Kim Tsok</a></li>
+        <li><a href="">Find feed</a></li>
+        <li><a href="">Feeds</a></li>
+        <li><a href="">Groups</a></li>
+        <li><a href="">Marketplace</a></li>
+        <li><a href="">Video</a></li>
+        <li><a href="">Memories</a></li>
+        <li><a href="">Saved</a></li>
+        <li><a href="">Pages</a></li>
+        <li><a href="">Events</a></li>
+        <li><a href="">Ads Manager</a></li>
+        <li><a href=""><img src="" alt="">See More</a></li>
+      </div>
+    </div>
+  </div>

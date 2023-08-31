@@ -1,0 +1,32 @@
+<div class="h-screen pt-5 bg-[url('/img/pexels-jakub-novacek-924824.jpg')]">
+      <nav class="bg-white h-16 w-11/12 rounded-full mx-auto flex justify-between items-center px-5 fxed">
+          <div class="font-bold text-xl">revive</div>
+          <div class="max-md:hidden max-md:flex-col-reverse">
+            <a href="#" class="text-green-500 mr-1">donate</a>
+            <a href="#" class="p-3 text-black border-green-500 px-5 py-3 bg-green-500 transition-all hover:bg-green-600 rounded-[40px] ml-1">join a challenge</a>
+          </div>
+          <a href="#" class="hidden max-md:block px-3 py-2 bg-green-500 rounded-2xl"><img src="./svg/bars.svg" alt=""></a>
+      </nav>
+
+      <div id="main" div class="flex flex-col justify-center items-center h-[80vh] p-3">
+        <h1 class="text-white text-5xl font-bold text-center leading-tight  max-md:text-3xl ">
+          hack the planet for good.<br/> coding a sustainable future
+          <div class="flex items-center justify-center pt-7 max-md:flex-col">
+            <a href="#" class="text-white font-bold text-xl m-1">donate</a>
+            <a href="#" class="p-3 text-white font-bold border-green-500 px-5 py-3 bg-green-500 hover:bg-green-600 rounded-[40px] transition-all text-xl m-1">join a challenge</a>
+          </div>
+        </h1>
+      </div>
+      <div class="pb-4 flex justify-center">
+        <footer class="bg-green-500 w-11/12 h-64 rounded-3xl flex justify-between items-center p-4 max-md:flex-col">
+          <div class="text-6xl text-white font-extrabold">revive. <p class="font-light text-sm">revive. all rights reserved. 2023</p></div>
+          <div class="flex flex-col ">
+            <a href="#" class="p-3 text-green-500 font-bold px-5 py-3 bg-white hover:bg-gray-200 transition-all rounded-[40px] text-xl m-1 text-center  mr-10 max-md:mr-0">join a challenge</a>
+            <div class="pt-3 flex justify-between">
+            <a href="#" class="text-gray-200 max-md:mr-1">privacy policy</a>
+            <a href="#" class="text-gray-200 max-md:ml-1">terms of service</a>
+          </div>
+          </div>
+        </footer>
+      </div>
+    </div>
