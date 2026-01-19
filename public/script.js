@@ -5,69 +5,74 @@ const searchBtn = document.querySelector("#searchBtn");
 const weatherIcon = document.querySelector("#weatherImg");
 const weatherBg = document.getElementById("bg");
 
+const searchForm = document.querySelector("#searchForm");
+const loadingIndicator = document.querySelector("#loading");
+const bgNext = document.querySelector("#bg-next");
+
 async function checkWeather(city) {
-  const response = await fetch(`${apiUrl}${city}&appid=${apiKey}&units=metric`);
+  if (!city) return;
+  
+  loadingIndicator.style.display = "flex";
+  
+  try {
+    const response = await fetch(`${apiUrl}${city}&appid=${apiKey}&units=metric`);
 
-  if (response.status == 404) {
-    document.querySelector("#invalid").style.display = "block";
-    document.querySelector("#info").style.display = "none";
-  } else {
-    document.querySelector("#invalid").style.display = "none";
-    document.querySelector("#info").style.display = "block";
-  }
+    if (response.status == 404) {
+      document.querySelector("#invalid").style.display = "block";
+      document.querySelector("#info").style.display = "none";
+      loadingIndicator.style.display = "none";
+      return;
+    } else {
+      document.querySelector("#invalid").style.display = "none";
+      document.querySelector("#info").style.display = "block";
+    }
 
-  var data = await response.json();
+    var data = await response.json();
 
-  document.querySelector(
-    "#cityName"
-  ).innerHTML = `<h1 class="font-extrabold text-4xl" id="cityName">Weather in ${data.name}</h1>`;
+    document.querySelector("#cityName").textContent = data.name;
+    document.querySelector("#temperature").textContent = Math.round(data.main.temp) + "ºC";
+    document.querySelector("#weather").textContent = data.weather[0].main;
+    document.querySelector("#humidity").textContent = data.main.humidity + "%";
+    document.querySelector("#wind").textContent = data.wind.speed + "Km/h";
 
-  document.querySelector(
-    "#temperature"
-  ).innerHTML = `<h1 class="font-extrabold text-3xl mb-1" id="temperature">${data.main.temp}ºC</h1>`;
+    const weatherIcons = {
+      "Clouds": "/Cloudy.svg",
+      "Clear": "/Sunny.svg",
+      "Rain": "/Thunder.svg",
+      "Drizzle": "/Rain.svg",
+      "Mist": "/Wind.svg"
+    };
 
-  document.querySelector("#weather").innerHTML = `${data.weather[0].main}`;
+    const weatherBgs = {
+      "Clouds": "url('/cloudy.jpg')",
+      "Clear": "url('/clear.jpg')",
+      "Rain": "url('/thunder.jpg')",
+      "Drizzle": "url('/rain.jpg')",
+      "Mist": "url('/wind.jpg')"
+    };
 
-  document.querySelector(
-    "#humidity"
-  ).innerHTML = `<p id="humidity">Humidity: ${data.main.humidity}%</p>`;
+    const condition = data.weather[0].main;
+    weatherIcon.src = weatherIcons[condition] || "/Sunny with cloud.svg";
+    
+    const nextBgUrl = weatherBgs[condition] || "url('/bg.jpg')";
+    if (bg.style.backgroundImage !== nextBgUrl && getComputedStyle(bg).backgroundImage !== nextBgUrl) {
+      bgNext.style.backgroundImage = nextBgUrl;
+      bgNext.style.opacity = "1";
+      
+      setTimeout(() => {
+        bg.style.backgroundImage = nextBgUrl;
+        bgNext.style.opacity = "0";
+      }, 1000);
+    }
 
-  document.querySelector(
-    "#wind"
-  ).innerHTML = `<p id="wind">Wind: ${data.wind.speed}Km/h</p>`;
-
-  if (data.weather[0].main == "Clouds") {
-    weatherIcon.src = "/Cloudy.svg";
-    weatherBg.style.background = "url('/cloudy.jpg')";
-    weatherBg.style.backgroundSize = "cover";
-    weatherBg.style.backgroundPosition = "center";
-  }
-  if (data.weather[0].main == "Clear") {
-    weatherIcon.src = "/Sunny.svg";
-    weatherBg.style.background = "url('/clear.jpg')";
-    weatherBg.style.backgroundSize = "cover";
-    weatherBg.style.backgroundPosition = "center";
-  }
-  if (data.weather[0].main == "Rain") {
-    weatherIcon.src = "/Thunder.svg";
-    weatherBg.style.background = "url('/thunder.jpg')";
-    weatherBg.style.backgroundSize = "cover";
-    weatherBg.style.backgroundPosition = "center";
-  }
-  if (data.weather[0].main == "Drizzle") {
-    weatherIcon.src = "/Rain.svg";
-    weatherBg.style.background = "url('/rain.jpg')";
-    weatherBg.style.backgroundSize = "cover";
-    weatherBg.style.backgroundPosition = "center";
-  }
-  if (data.weather[0].main == "Mist") {
-    weatherIcon.src = "/Wind.svg";
-    weatherBg.style.background = "url('/wind.jpg')";
-    weatherBg.style.backgroundSize = "cover";
-    weatherBg.style.backgroundPosition = "center";
+  } catch (error) {
+    console.error("Error fetching weather:", error);
+  } finally {
+    loadingIndicator.style.display = "none";
   }
 }
 
-searchBtn.addEventListener("click", () => {
+searchForm.addEventListener("submit", (e) => {
+  e.preventDefault();
   checkWeather(searchBox.value);
 });

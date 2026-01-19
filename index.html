@@ -12,57 +12,78 @@
     <script defer src="/script.js"></script>
     <title>Mist</title>
   </head>
-  <body class="text-white h-screen">
-    <div id="bg" class="w-full h-full bg-[url('/bg.jpg')] bg-cover bg-center">
-      <div class="h-[100vh] bg-black/20">
-        <div class="flex h-screen">
-          <div class="flex flex-col items-center w-full justify-center">
-            <div
-              class="flex justify-center items-center w-[45%] p-0.5 px-2 bg-zinc-80/20 backdrop-blur-lg rounded-lg"
-            >
-              <input
-                type="search"
-                spellcheck="false"
-                name="searchBar"
-                id="searchBar"
-                class="w-full text-xl p-2 px-2 placeholder:text-white bg-transparent outline-none"
-                placeholder="Search Your City Here..."
-                required
-              />
+  <body class="text-white h-screen overflow-hidden">
+    <div id="bg" class="fixed inset-0 bg-cover bg-center transition-opacity duration-1000 z-0" style="background-image: url('/bg.jpg');"></div>
+    <div id="bg-next" class="fixed inset-0 bg-cover bg-center transition-opacity duration-1000 opacity-0 z-10" style="background-image: url('/bg.jpg');"></div>
+    
+    <div class="relative z-20 min-h-screen bg-black/40 flex items-center justify-center p-4">
+      <div class="flex flex-col items-center w-full max-w-lg">
+        <form id="searchForm" class="flex justify-center items-center w-full p-1 px-4 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-2xl transition-all duration-300 focus-within:bg-white/20 focus-within:shadow-[0_0_20px_rgba(255,255,255,0.1)]">
+          <input
+            type="search"
+            spellcheck="false"
+            name="searchBar"
+            id="searchBar"
+            class="w-full text-base md:text-xl p-3 placeholder:text-white/60 bg-transparent outline-none text-white font-medium"
+            placeholder="Search Your City..."
+            required
+          />
+          <button type="submit" id="searchBtn" class="p-2 transition-transform active:scale-90 group">
+            <img
+              src="./svg/magnifying-glass-solid.svg"
+              alt="Search"
+              class="w-5 h-5 md:w-6 md:h-6 transition-all duration-300 group-hover:scale-110"
+            />
+          </button>
+        </form>
+
+        <div
+          class="text-center mt-6 bg-red-500/10 border border-red-500/30 rounded-xl backdrop-blur-xl p-4 hidden text-base font-semibold text-red-200 shadow-lg animate-in fade-in zoom-in duration-300"
+          id="invalid"
+        >
+          City not found. Please try again.
+        </div>
+        <div
+          class="relative flex flex-col w-full mt-6 bg-white/10 rounded-3xl backdrop-blur-2xl p-6 md:p-8 border border-white/20 shadow-2xl transition-all duration-500 overflow-hidden"
+          id="info"
+        >
+          <div id="loading" class="absolute inset-0 bg-black/40 backdrop-blur-sm hidden flex-col items-center justify-center z-20">
+            <div class="w-10 h-10 md:w-12 md:h-12 border-4 border-white/20 border-t-white rounded-full animate-spin mb-4"></div>
+            <p class="text-white text-sm md:text-base font-medium tracking-wide">Fetching Weather...</p>
+          </div>
+
+          <div class="flex justify-between items-start mb-6">
+            <div>
+              <h1 class="font-bold text-xs md:text-sm uppercase tracking-widest text-white/50 mb-1">Current Weather</h1>
+              <h2 class="font-extrabold text-2xl md:text-4xl text-white tracking-tight" id="cityName">
+                - - - - -
+              </h2>
+            </div>
+            <div class="bg-white/10 p-2 rounded-2xl backdrop-blur-md">
               <img
-                src="./svg/magnifying-glass-solid.svg"
-                alt="searchBtn"
-                id="searchBtn"
-                class="w-7 h-7 border-l-2 border-white pl-2 cursor-pointer"
+                src="/Sunny with cloud.svg"
+                alt="Weather"
+                class="w-12 h-12 md:w-14 md:h-14 drop-shadow-2xl"
+                id="weatherImg"
               />
             </div>
-            <div
-              class="text-center m-4 bg-zinc-80/20 rounded-lg backdrop-blur-xl p-5 hidden text-xl font-bold"
-              id="invalid"
-            >
-              Invalid City Name
+          </div>
+
+          <div class="flex items-end mb-8">
+            <h1 class="font-black text-5xl md:text-6xl text-white mr-4 tabular-nums" id="temperature">
+              - - ºC
+            </h1>
+            <span class="font-bold text-xl md:text-2xl text-white/80 mb-1 capitalize" id="weather">- - -</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4 border-t border-white/10 pt-6">
+            <div class="bg-white/5 p-4 rounded-2xl flex flex-col border border-white/5 hover:bg-white/10 transition-colors duration-300">
+              <span class="text-white/40 text-[10px] md:text-xs font-bold uppercase tracking-wider mb-1">Humidity</span>
+              <span class="text-xl md:text-2xl font-black text-white" id="humidity">- - %</span>
             </div>
-            <div
-              class="flex flex-col w-[45%] h-[20rem] bg-zinc-80/20 mt-5 rounded-lg backdrop-blur-xl p-10"
-              id="info"
-            >
-              <h1 class="font-extrabold text-4xl mb-8" id="cityName">
-                Weather in - - - - -
-              </h1>
-              <h1 class="font-extrabold text-3xl mb-1" id="temperature">
-                - - ºC
-              </h1>
-              <div class="flex items-center mb-8 w-full">
-                <h1 class="font-extrabold text-3xl" id="weather">- - -</h1>
-                <img
-                  src="/Sunny with cloud.svg"
-                  alt="Weather"
-                  class="w-12 h-12 ml-2"
-                  id="weatherImg"
-                />
-              </div>
-              <p id="humidity">Humidity: - - - %</p>
-              <p id="wind">Wind: - - - Km/h</p>
+            <div class="bg-white/5 p-4 rounded-2xl flex flex-col border border-white/5 hover:bg-white/10 transition-colors duration-300">
+              <span class="text-white/40 text-[10px] md:text-xs font-bold uppercase tracking-wider mb-1">Wind Speed</span>
+              <span class="text-xl md:text-2xl font-black text-white" id="wind">- - Km/h</span>
             </div>
           </div>
         </div>
