@@ -8,7 +8,6 @@ const searchBtn = document.querySelector("#searchBtn");
 const weatherIcon = document.querySelector("#weatherImg");
 const weatherBg = document.getElementById("bg");
 
-console.log(searchBox.value);
 async function checkWeather(city) {
   const response = await fetch(`${apiUrl}${city}&appid=${apiKey}&units=metric`);
 
@@ -21,8 +20,6 @@ async function checkWeather(city) {
   }
 
   var data = await response.json();
-
-  console.log(data);
 
   document.querySelector(
     "#cityName"
