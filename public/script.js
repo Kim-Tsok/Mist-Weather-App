@@ -38,31 +38,31 @@ async function checkWeather(city) {
 
   if (data.weather[0].main == "Clouds") {
     weatherIcon.src = "/Cloudy.svg";
-    // weatherBg.style.background = "url('/cloudy.jpg')";
+    weatherBg.style.background = "url('/cloudy.jpg')";
     weatherBg.style.backgroundSize = "cover";
     weatherBg.style.backgroundPosition = "center";
   }
   if (data.weather[0].main == "Clear") {
     weatherIcon.src = "/Sunny.svg";
-    // weatherBg.style.background = "url('/clear.jpg')";
+    weatherBg.style.background = "url('/clear.jpg')";
     weatherBg.style.backgroundSize = "cover";
     weatherBg.style.backgroundPosition = "center";
   }
   if (data.weather[0].main == "Rain") {
     weatherIcon.src = "/Thunder.svg";
-    // weatherBg.style.background = "url('/rain.jpg')";
+    weatherBg.style.background = "url('/thunder.jpg')";
     weatherBg.style.backgroundSize = "cover";
     weatherBg.style.backgroundPosition = "center";
   }
   if (data.weather[0].main == "Drizzle") {
     weatherIcon.src = "/Rain.svg";
-    // weatherBg.style.background = "url('/drizzle.jpg')";
+    weatherBg.style.background = "url('/rain.jpg')";
     weatherBg.style.backgroundSize = "cover";
     weatherBg.style.backgroundPosition = "center";
   }
   if (data.weather[0].main == "Mist") {
     weatherIcon.src = "/Wind.svg";
-    // weatherBg.style.background = "url('/mist.jpg')";
+    weatherBg.style.background = "url('/wind.jpg')";
     weatherBg.style.backgroundSize = "cover";
     weatherBg.style.backgroundPosition = "center";
   }
