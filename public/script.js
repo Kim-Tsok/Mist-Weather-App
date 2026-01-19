@@ -11,11 +11,13 @@ const bgNext = document.querySelector("#bg-next");
 
 async function checkWeather(city) {
   if (!city) return;
-  
+
   loadingIndicator.style.display = "flex";
-  
+
   try {
-    const response = await fetch(`${apiUrl}${city}&appid=${apiKey}&units=metric`);
+    const response = await fetch(
+      `${apiUrl}${city}&appid=${apiKey}&units=metric`
+    );
 
     if (response.status == 404) {
       document.querySelector("#invalid").style.display = "block";
@@ -30,41 +32,44 @@ async function checkWeather(city) {
     var data = await response.json();
 
     document.querySelector("#cityName").textContent = data.name;
-    document.querySelector("#temperature").textContent = Math.round(data.main.temp) + "ºC";
+    document.querySelector("#temperature").textContent =
+      Math.round(data.main.temp) + "ºC";
     document.querySelector("#weather").textContent = data.weather[0].main;
     document.querySelector("#humidity").textContent = data.main.humidity + "%";
     document.querySelector("#wind").textContent = data.wind.speed + "Km/h";
 
     const weatherIcons = {
-      "Clouds": "/Cloudy.svg",
-      "Clear": "/Sunny.svg",
-      "Rain": "/Thunder.svg",
-      "Drizzle": "/Rain.svg",
-      "Mist": "/Wind.svg"
+      Clouds: "/Cloudy.svg",
+      Clear: "/Sunny.svg",
+      Rain: "/Thunder.svg",
+      Drizzle: "/Rain.svg",
+      Mist: "/Wind.svg",
     };
 
     const weatherBgs = {
-      "Clouds": "url('/cloudy.jpg')",
-      "Clear": "url('/clear.jpg')",
-      "Rain": "url('/thunder.jpg')",
-      "Drizzle": "url('/rain.jpg')",
-      "Mist": "url('/wind.jpg')"
+      Clouds: "url('/cloudy.jpg')",
+      Clear: "url('/clear.jpg')",
+      Rain: "url('/rain.jpg')",
+      Drizzle: "url('/rain.jpg')",
+      Mist: "url('/wind.jpg')",
     };
 
     const condition = data.weather[0].main;
     weatherIcon.src = weatherIcons[condition] || "/Sunny with cloud.svg";
-    
+
     const nextBgUrl = weatherBgs[condition] || "url('/bg.jpg')";
-    if (bg.style.backgroundImage !== nextBgUrl && getComputedStyle(bg).backgroundImage !== nextBgUrl) {
+    if (
+      bg.style.backgroundImage !== nextBgUrl &&
+      getComputedStyle(bg).backgroundImage !== nextBgUrl
+    ) {
       bgNext.style.backgroundImage = nextBgUrl;
       bgNext.style.opacity = "1";
-      
+
       setTimeout(() => {
         bg.style.backgroundImage = nextBgUrl;
         bgNext.style.opacity = "0";
       }, 1000);
     }
-
   } catch (error) {
     console.error("Error fetching weather:", error);
   } finally {
